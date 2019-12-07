@@ -1,12 +1,75 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from './app.js';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import createStore from './store';
+const store = createStore();
+
+function Main() {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+}
+
+const rootElement = document.getElementById('root');
+ReactDOM.render(<Main />, rootElement);
+
+
+
+
+//============= CONTEXT (OLD) ===================
+// import React from 'react';
+
+// export const SettingsContext = React.createContext();
+
+// class Settings extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       maxVisible: 3,
+//       showCompleted: true,
+//     };
+//   }
+
+//   render() {
+//     return (
+//       <SettingsContext.Provider value={this.state}>
+//         {this.props.children}
+//       </SettingsContext.Provider>
+//     );
+//   }
+// }
+
+// export default Settings;
+
+
+//================== HOOKS (OLD)==================
+
+// import { useState } from 'react';
+
+// const useForm = (callback) => {
+
+//   const [values, setValues] = useState({});
+
+//   const handleSubmit = (event) => {
+//     if (event) event.preventDefault();
+//     callback(values);
+//   };
+
+//   const handleChange = (event) => {
+//     event.persist();
+//     setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+//   };
+
+//   return {
+//     handleChange,
+//     handleSubmit,
+//     values,
+//   }
+// };
+
+// export default useForm;
